@@ -6,6 +6,11 @@ PATCH_DIR="/opt/laravel-patches"
 
 echo "[php] init start"
 
+# Создаем необходимые папки для Laravel
+mkdir -p $APP_DIR/storage/{framework/{cache,sessions,views},logs,app/public}
+chmod -R 775 $APP_DIR/storage
+chown -R www-data:www-data $APP_DIR/storage
+
 if [ ! -f "$APP_DIR/artisan" ]; then
   echo "[php] creating laravel skeleton"
   composer create-project --no-interaction --prefer-dist laravel/laravel:^11 "$APP_DIR"
